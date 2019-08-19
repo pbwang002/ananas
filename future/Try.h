@@ -302,7 +302,7 @@ private:
 // TryWrapper<T> : if T is Try type, then Type is T otherwise is Try<T>
 template <typename T>
 struct TryWrapper {
-    using Type = Try<T>;
+    using Type = Try<T>;//将T封装为Try<T>类型
 };
 
 template <typename T>

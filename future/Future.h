@@ -27,8 +27,8 @@ using TimeoutCallback = std::function<void ()>;
 template <typename T>
 struct State {
     static_assert(std::is_same<T, void>::value ||
-                  std::is_copy_constructible<T>() ||
-                  std::is_move_constructible<T>(),
+                  std::is_copy_constructible<T>::value ||
+                  std::is_move_constructible<T>::value,
                   "must be copyable or movable or void");
 
     State() :
@@ -40,7 +40,7 @@ struct State {
 
     using ValueType = typename TryWrapper<T>::Type;
     ValueType value_;
-    std::function<void (ValueType&& )> then_;
+    std::function<void (ValueType&& )> then_;  //保存.then要执行的函数
     Progress progress_;
 
     std::function<void (TimeoutCallback&& )> onTimeout_;
